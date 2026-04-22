@@ -17,17 +17,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Se o seu projeto real for Java (Maven/Gradle), mantenha este step ativo para o SCA funcionar.
-      # Se for Node.js, você pode apagá-lo e colocar o "run: npm install" no lugar.
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
-      - name: Resolver Dependências (Maven) para o SCA
-        run: mvn dependency:resolve
-
       - name: Xygeni Scan (SAST & SCA isolados)
         uses: xygeni/xygeni-action@v6
         with:
