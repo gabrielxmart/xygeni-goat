@@ -25,6 +25,9 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Resolver Dependências (Maven) para o SCA
+        run: mvn dependency:resolve
+
       - name: Xygeni Scan (SAST & SCA isolados)
         uses: xygeni/xygeni-action@v6
         with:
