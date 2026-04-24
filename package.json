@@ -4,6 +4,6 @@
   "description": "App vulneravel para demo S.I.Q",
   "main": "index.js",
   "dependencies": {
-    "lodash": "4.17.15" 
+    "lodash": "4.17.20" 
   }
 }
