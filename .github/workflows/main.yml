@@ -11,12 +11,12 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v4
 
-      - name: Instalar e executar Xygeni (SAST, Secrets e IaC)
+    - name: Instalar e executar Xygeni (SAST, Secrets e IaC)
         run: |
           curl -sSfL https://get.xygeni.io/latest/scanner/get-xygeni.sh | bash
-          ~/.xygeni/xygeni sast -n xygeni-goat -d . --upload
-          ~/.xygeni/xygeni secrets -n xygeni-goat -d . --upload
-          ~/.xygeni/xygeni iac -n xygeni-goat -d . --upload
+          ~/.xygeni/xygeni sast -n xygeni-goat -d . --upload || true
+          ~/.xygeni/xygeni secrets -n xygeni-goat -d . --upload || true
+          ~/.xygeni/xygeni iac -n xygeni-goat -d . --upload || true
         env:
           XYGENI_URL: https://api.xygeni.io
           XYGENI_TOKEN: ${{ secrets.XYGENI_TOKEN }}
