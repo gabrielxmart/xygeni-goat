@@ -1,4 +1,4 @@
-name: Xygeni SAST
+name: Xygeni Full Scan
 on:
   push:
     branches: [ "main" ]
@@ -10,13 +10,14 @@ jobs:
     steps:
       - name: Checkout do código
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Obrigatório para o scanner ler o histórico de commits e autores
 
-      - name: Instalar e executar Xygeni (SAST, Secrets e IaC)
+      - name: Instalar e executar Xygeni Completo
         run: |
           curl -sSfL https://get.xygeni.io/latest/scanner/get-xygeni.sh | bash
-          ~/.xygeni/xygeni sast -n xygeni-goat -d . --upload || true
-          ~/.xygeni/xygeni secrets -n xygeni-goat -d . --upload || true
-          ~/.xygeni/xygeni iac -n xygeni-goat -d . --upload || true
+          ~/.xygeni/xygeni scan -n xygeni-goat --dir .
         env:
-          XYGENI_URL: https://api.xygeni.io
+          XYGENI_URL: https://in.xygeni.io
           XYGENI_TOKEN: ${{ secrets.XYGENI_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
